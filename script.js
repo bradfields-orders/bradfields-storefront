@@ -41,7 +41,7 @@ function checkout() {
   const totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   // Send email via EmailJS
-  emailjs.send("service_ynszdmf", "template_1ho3vzm", {
+  emailjs.send("service_ynszdmf", "template_gaxjw0r", {
     customer_name: customerName,
     customer_email: customerEmail,
     order_details: orderDetails,
