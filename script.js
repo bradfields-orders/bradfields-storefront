@@ -2,11 +2,12 @@ let cart = [];
 let totalPrice = 0;
 
 // Function to add items to the cart
-function addToCart(productName, price, quantity) {
-  quantity = parseInt(quantity); // Ensure quantity is an integer
-  cart.push({ name: productName, price: price, quantity: quantity });
+function addToCart(productName, productPrice) {
+  const quantity = parseInt(document.getElementById("product-quantity").value);
+  cart.push({ name: productName, price: productPrice, quantity });
   updateCart();
 }
+
 
 // Function to update the cart display
 function updateCart() {
