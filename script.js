@@ -29,21 +29,30 @@ function updateCart() {
 }
 
 function checkout() {
+  // Get customer information
   const customerName = document.getElementById("customer-name").value;
   const customerEmail = document.getElementById("customer-email").value;
+  const customerAddress = document.getElementById("customer-address").value;
+  const dropoffLocation = document.getElementById("dropoff-location").value;
+  const customerPhone = document.getElementById("customer-phone").value;
 
-  if (!customerName || !customerEmail) {
-    alert("Please enter your name and email before checking out.");
+  // Get cart details (assuming this is already implemented)
+  const orderDetails = cart.map(item => `${item.name} - $${item.price} x ${item.quantity}`).join('\n');
+  const totalPrice = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+
+  // Check if required fields are filled
+  if (!customerName || !customerEmail || !customerAddress || !dropoffLocation || !customerPhone) {
+    alert("Please fill out all the fields before checking out.");
     return;
   }
 
-  const orderDetails = cart.map(item => `${item.name} (x${item.quantity}) - $${(item.price * item.quantity).toFixed(2)}`).join(", ");
-  const totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-
   // Send email via EmailJS
-  emailjs.send("service_ynszdmf", "template_gaxjw0r", {
+  emailjs.send("service_cojca1l", "template_1ho3vzm", {
     customer_name: customerName,
     customer_email: customerEmail,
+    customer_address: customerAddress,
+    dropoff_location: dropoffLocation,
+    customer_phone: customerPhone,
     order_details: orderDetails,
     total_price: totalPrice.toFixed(2)
   })
