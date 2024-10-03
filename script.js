@@ -47,7 +47,7 @@ function checkout() {
   }
 
   // Send email via EmailJS
-  emailjs.send("service_cojca1l", "template_gaxjw0r", {
+  emailjs.send("service_ynszdmf", "template_gaxjw0r", {
     customer_name: customerName,
     customer_email: customerEmail,
     customer_address: customerAddress,
