@@ -47,6 +47,9 @@ function checkout() {
     return;
   }
 
+  // Show loading spinner
+  document.getElementById("loading-spinner").style.display = "block";
+
   // Send email via EmailJS
   emailjs.send("service_ynszdmf", "template_gaxjw0r", {
     customer_name: customerName,
@@ -60,10 +63,18 @@ function checkout() {
   .then((response) => {
     alert('Order placed successfully! A confirmation email will be sent.');
     console.log('SUCCESS!', response.status, response.text);
-    cart = []; // Clear cart
-    updateCart(); // Update cart display
+    
+    // Clear cart and update display
+    cart = [];
+    updateCart();
+
+    // Hide the spinner after success
+    document.getElementById("loading-spinner").style.display = "none";
   }, (error) => {
     alert('Failed to send order. Please try again.');
     console.log('FAILED...', error);
+
+    // Hide the spinner after failure
+    document.getElementById("loading-spinner").style.display = "none";
   });
 }
