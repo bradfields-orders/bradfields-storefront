@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bradfield's Computer Supply - Label Media Store</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+  <img src="Bradfields_Logo.jpg" alt="Bradfield's Computer Supply Logo" class="logo">
+  <h1>Bradfield's Computer Supply</h1>
+  <h2>Zebra Label Media Store</h2>
+</header>
+
+  <section id="products">
+    <h3>Available Media</h3>
+    <div class="product-list">
+      <!-- Example Product -->
+      <div class="product">
+        <h4>Laboratory Sample Labeling - Direct Thermal Labels</h4>
+        <p>General purpose test tube labelling</p>
+        <p>Price: $25.00</p>
+        <label for="qty-standard-zebra">Quantity:</label>
+        <input type="number" id="qty-standard-zebra" value="1" min="1">
+        <button onclick="addToCart('Standard Zebra Labels', 25, document.getElementById('qty-standard-zebra').value)">Add to Cart</button>
+      </div>
+
+      <!-- Add more products as needed -->
+  <section id="products">
+    <div class="product-list">
+      <!-- Example Product -->
+      <div class="product">
+        <h4>Laboratory Cryogenic - Gloss Polypropylene Labels</h4>
+        <p>Labeling of samples subject to freeze-thaw cycles</p>
+        <p>Price: $45.00</p>
+        <label for="qty-standard-zebra">Quantity:</label>
+        <input type="number" id="qty-standard-zebra" value="1" min="1">
+        <button onclick="addToCart('Standard Zebra Labels', 25, document.getElementById('qty-standard-zebra').value)">Add to Cart</button>
+    </div>
+
+       <!-- Add more products as needed -->
+       <section id="products">
+    <div class="product-list">
+      <!-- Example Product -->
+      <div class="product">
+        <h4>Blood Labeling</h4>
+        <p>Polypropylene label with an all-temp acrylic adhesive compliant with FDA 175.105</p>
+        <p>Price: $35.00</p>
+        <label for="qty-standard-zebra">Quantity:</label>
+        <input type="number" id="qty-standard-zebra" value="1" min="1">
+        <button onclick="addToCart('Standard Zebra Labels', 25, document.getElementById('qty-standard-zebra').value)">Add to Cart</button>
+    </div>
+
+       <!-- Add more products as needed -->
+
+       <section id="products">
+    <div class="product-list">
+      <!-- Example Product -->
+      <div class="product">
+        <h4>Mobile Printer Labels</h4>
+        <p>Zebra Direct Thermal, perforated, 3/4 inch core</p>
+        <p>Price: $5.00</p>
+        <label for="qty-standard-zebra">Quantity:</label>
+        <input type="number" id="qty-standard-zebra" value="1" min="1">
+        <button onclick="addToCart('Standard Zebra Labels', 25, document.getElementById('qty-standard-zebra').value)">Add to Cart</button>
+    </div>
+
+       <!-- Add more products as needed -->
+
+      <section id="products">
+    <div class="product-list">
+      <!-- Example Product -->
+      <div class="product">
+        <h4>Desktop Direct Thermal Labels - White</h4>
+        <p>1 x 3 inch, Bright White, 1 inch core</p>
+        <p>Price: $15.00</p>
+        <label for="qty-standard-zebra">Quantity:</label>
+        <input type="number" id="qty-standard-zebra" value="1" min="1">
+        <button onclick="addToCart('Standard Zebra Labels', 25, document.getElementById('qty-standard-zebra').value)">Add to Cart</button>
+    </div>
+
+       <!-- Add more products as needed -->
+      
+  </section>
+
+<section id="customer-info">
+  <h3>Customer Information</h3>
+  <label for="customer-name">Name:</label>
+  <input type="text" id="customer-name" placeholder="Enter your name" required><br>
+
+  <label for="customer-email">Email:</label>
+  <input type="email" id="customer-email" placeholder="Enter your email" required><br>
+
+  <button onclick="checkout()">Checkout</button>
+</section>
+  
+  <section id="cart">
+    <h3>Your Cart</h3>
+    <ul id="cart-items">
+      <li>No items in cart.</li>
+    </ul>
+    <p>Total: $<span id="total-price">0.00</span></p>
+    <button onclick="checkout()">Checkout</button>
+  </section>
+
+  <footer>
+    <p>Contact us at: steveh@bradfields.com</p>
+  </footer>
+
+<script src="script.js"></script>
+    
+<script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+</script>
+<script type="text/javascript">
+   (function(){
+      emailjs.init({
+        publicKey: "q6XKCpaaDArt46TSl",
+      });
+   })();
+</script>
+      
+</body>
+</html>
