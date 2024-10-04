@@ -37,7 +37,7 @@ header h2 {
 }
 
 .logo {
-  max-width: 120px; /* Larger logo */
+  max-width: 200px; /* Larger logo */
   display: block;
   margin: 0 auto 10px; /* Adds spacing */
 }
