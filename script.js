@@ -1,22 +1,26 @@
 let cart = [];
 let totalPrice = 0;
 
-// Function to add items to the cart
 function addToCart(productName, productPrice, quantityId) {
-  const quantity = parseInt(document.getElementById(quantityId).value);
+  const quantityInput = document.getElementById(quantityId);
   
-  // Check if the product already exists in the cart
-  const existingProduct = cart.find(item => item.name === productName);
+  // Ensure the element exists before trying to access its value
+  if (!quantityInput) {
+    alert('Error: Quantity input not found!');
+    return;
+  }
 
+  const quantity = parseInt(quantityInput.value);
+
+  // Add or update the cart
+  const existingProduct = cart.find(item => item.name === productName);
   if (existingProduct) {
-    // Update the quantity if the product is already in the cart
     existingProduct.quantity += quantity;
   } else {
-    // Add a new product to the cart
     cart.push({ name: productName, price: productPrice, quantity });
   }
-  
-  updateCart();
+
+  updateCart(); // Update cart display
 }
 
 // Function to update the cart display
