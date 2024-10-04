@@ -44,7 +44,7 @@ function checkout() {
 
   // Generate order details from cart
   const orderDetails = cart.map(item => `${item.name} - $${item.price} x ${item.quantity}`).join('\n');
-  totalPrice = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+  const totalPrice = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
 
   // Check if cart is empty
   if (cart.length === 0) {
@@ -52,7 +52,7 @@ function checkout() {
     return;
   }
 
-  // Send email via EmailJS
+  // Send internal order email via EmailJS
   emailjs.send("service_ynszdmf", "template_gaxjw0r", {
     customer_name: customerName,
     customer_email: customerEmail,
@@ -63,18 +63,27 @@ function checkout() {
     total_price: totalPrice.toFixed(2)
   })
   .then((response) => {
-    alert('Order placed successfully! A confirmation email will be sent.');
-    console.log('SUCCESS!', response.status, response.text);
+    console.log('Internal Order Email Sent', response.status, response.text);
+  }, (error) => {
+    console.log('Failed to send internal order email...', error);
+  });
+
+  // Send customer confirmation email via EmailJS
+  emailjs.send("service_ynszdmf", "template_25trg5l", {
+    customer_name: customerName,
+    customer_email: customerEmail,
+    order_details: orderDetails,
+    total_price: totalPrice.toFixed(2)
+  })
+  .then((response) => {
+    alert('Order placed successfully! A confirmation email will be sent to you.');
+    console.log('Customer Confirmation Email Sent', response.status, response.text);
     
     // Clear cart and update display
     cart = [];
     updateCart();
-    
-    // Reset quantity inputs to 1
-    const quantityInputs = document.querySelectorAll('input[type="number"]');
-    quantityInputs.forEach(input => input.value = 1); // Reset each quantity input
   }, (error) => {
-    alert('Failed to send order. Please try again.');
-    console.log('FAILED...', error);
+    alert('Failed to send confirmation email. Please try again.');
+    console.log('Failed to send customer confirmation email...', error);
   });
 }
