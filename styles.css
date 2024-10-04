@@ -37,9 +37,9 @@ header h2 {
 }
 
 .logo {
-  max-width: 300px; /* Larger logo */
+  max-width: 300px !important; /* Larger logo */
   display: block;
-  margin: 0 auto 10px; /* Adds spacing */
+  margin: 0 auto 10px; /* Center it with some spacing below */
 }
 
 /* Product section styling */
