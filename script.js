@@ -36,14 +36,20 @@ function checkout() {
   const dropoffLocation = document.getElementById("dropoff-location").value;
   const customerPhone = document.getElementById("customer-phone").value;
 
- // Check if required fields are filled
+  // Check if required fields are filled
   if (!customerName || !customerEmail || !customerAddress || !dropoffLocation || !customerPhone) {
     alert("Please fill out all the fields before checking out.");
     return;
-  
-  // Get cart details
+  }
+
+  // Generate order details from cart
   const orderDetails = cart.map(item => `${item.name} - $${item.price} x ${item.quantity}`).join('\n');
   const totalPrice = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+
+  // Check if cart is empty
+  if (cart.length === 0) {
+    alert('Your cart is empty. Please add some items before checking out.');
+    return;
   }
 
   // Send email via EmailJS
@@ -53,7 +59,7 @@ function checkout() {
     customer_address: customerAddress,
     dropoff_location: dropoffLocation,
     customer_phone: customerPhone,
-    order_details: orderDetails,
+    order_details: orderDetails,  // This is now properly defined
     total_price: totalPrice.toFixed(2)
   })
   .then((response) => {
