@@ -1,26 +1,11 @@
 let cart = [];
 let totalPrice = 0;
 
-function addToCart(productName, productPrice, quantityId) {
-  const quantityInput = document.getElementById(quantityId);
-  
-  // Ensure the element exists before trying to access its value
-  if (!quantityInput) {
-    alert('Error: Quantity input not found!');
-    return;
-  }
-
-  const quantity = parseInt(quantityInput.value);
-
-  // Add or update the cart
-  const existingProduct = cart.find(item => item.name === productName);
-  if (existingProduct) {
-    existingProduct.quantity += quantity;
-  } else {
-    cart.push({ name: productName, price: productPrice, quantity });
-  }
-
-  updateCart(); // Update cart display
+// Function to add items to the cart
+function addToCart(productName, price, quantity) {
+  quantity = parseInt(quantity); // Ensure quantity is an integer
+  cart.push({ name: productName, price: price, quantity: quantity });
+  updateCart();
 }
 
 // Function to update the cart display
@@ -32,7 +17,7 @@ function updateCart() {
   if (cart.length === 0) {
     cartItems.innerHTML = '<li>No items in cart.</li>';
   } else {
-    cart.forEach((item) => {
+    cart.forEach((item, index) => {
       const itemTotalPrice = (item.price * item.quantity).toFixed(2);
       cartItems.innerHTML += `<li>${item.name} (x${item.quantity}) - $${itemTotalPrice}</li>`;
     });
@@ -51,14 +36,14 @@ function checkout() {
   const dropoffLocation = document.getElementById("dropoff-location").value;
   const customerPhone = document.getElementById("customer-phone").value;
 
-  // Get cart details
-  const orderDetails = cart.map(item => `${item.name} - $${item.price} x ${item.quantity}`).join('\n');
-  const totalPrice = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
-
-  // Check if required fields are filled
+ // Check if required fields are filled
   if (!customerName || !customerEmail || !customerAddress || !dropoffLocation || !customerPhone) {
     alert("Please fill out all the fields before checking out.");
     return;
+  
+  // Get cart details
+  const orderDetails = cart.map(item => `${item.name} - $${item.price} x ${item.quantity}`).join('\n');
+  const totalPrice = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
   }
 
   // Send email via EmailJS
