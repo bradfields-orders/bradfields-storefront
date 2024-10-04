@@ -2,12 +2,22 @@ let cart = [];
 let totalPrice = 0;
 
 // Function to add items to the cart
-function addToCart(productName, productPrice) {
-  const quantity = parseInt(document.getElementById("product-quantity").value);
-  cart.push({ name: productName, price: productPrice, quantity });
+function addToCart(productName, productPrice, quantityId) {
+  const quantity = parseInt(document.getElementById(quantityId).value);
+  
+  // Check if the product already exists in the cart
+  const existingProduct = cart.find(item => item.name === productName);
+
+  if (existingProduct) {
+    // Update the quantity if the product is already in the cart
+    existingProduct.quantity += quantity;
+  } else {
+    // Add a new product to the cart
+    cart.push({ name: productName, price: productPrice, quantity });
+  }
+  
   updateCart();
 }
-
 
 // Function to update the cart display
 function updateCart() {
@@ -18,7 +28,7 @@ function updateCart() {
   if (cart.length === 0) {
     cartItems.innerHTML = '<li>No items in cart.</li>';
   } else {
-    cart.forEach((item, index) => {
+    cart.forEach((item) => {
       const itemTotalPrice = (item.price * item.quantity).toFixed(2);
       cartItems.innerHTML += `<li>${item.name} (x${item.quantity}) - $${itemTotalPrice}</li>`;
     });
@@ -37,7 +47,7 @@ function checkout() {
   const dropoffLocation = document.getElementById("dropoff-location").value;
   const customerPhone = document.getElementById("customer-phone").value;
 
-  // Get cart details (assuming this is already implemented)
+  // Get cart details
   const orderDetails = cart.map(item => `${item.name} - $${item.price} x ${item.quantity}`).join('\n');
   const totalPrice = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
 
@@ -64,4 +74,8 @@ function checkout() {
     // Clear cart and update display
     cart = [];
     updateCart();
+  }, (error) => {
+    alert('Failed to send order. Please try again.');
+    console.log('FAILED...', error);
+  });
 }
