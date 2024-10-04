@@ -17,14 +17,14 @@ function updateCart() {
   if (cart.length === 0) {
     cartItems.innerHTML = '<li>No items in cart.</li>';
   } else {
-    cart.forEach((item, index) => {
+    cart.forEach((item) => {
       const itemTotalPrice = (item.price * item.quantity).toFixed(2);
       cartItems.innerHTML += `<li>${item.name} (x${item.quantity}) - $${itemTotalPrice}</li>`;
     });
   }
 
   // Calculate total price
-  const totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
   totalPriceElem.textContent = totalPrice.toFixed(2);
 }
 
@@ -44,7 +44,7 @@ function checkout() {
 
   // Generate order details from cart
   const orderDetails = cart.map(item => `${item.name} - $${item.price} x ${item.quantity}`).join('\n');
-  const totalPrice = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+  totalPrice = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
 
   // Check if cart is empty
   if (cart.length === 0) {
@@ -59,7 +59,7 @@ function checkout() {
     customer_address: customerAddress,
     dropoff_location: dropoffLocation,
     customer_phone: customerPhone,
-    order_details: orderDetails,  // This is now properly defined
+    order_details: orderDetails,
     total_price: totalPrice.toFixed(2)
   })
   .then((response) => {
@@ -69,6 +69,10 @@ function checkout() {
     // Clear cart and update display
     cart = [];
     updateCart();
+    
+    // Reset quantity inputs to 1
+    const quantityInputs = document.querySelectorAll('input[type="number"]');
+    quantityInputs.forEach(input => input.value = 1); // Reset each quantity input
   }, (error) => {
     alert('Failed to send order. Please try again.');
     console.log('FAILED...', error);
