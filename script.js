@@ -1,4 +1,5 @@
 let cart = [];
+let cartCount = 0;
 let totalPrice = 0;
 
 // Add item to cart
@@ -6,6 +7,7 @@ function addToCart(productName, price, quantity) {
   quantity = parseInt(quantity); // Ensure quantity is an integer
   cart.push({ name: productName, price: price, quantity: quantity });
   updateCart();
+  showToast(`${productName} added to cart`);
 }
 
 // Update cart display
@@ -48,6 +50,10 @@ function checkout() {
   const orderDetails = cart.map(item => `${item.name} - $${item.price} x ${item.quantity}`).join('\n');
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
+  function scrollToCart() {
+  document.getElementById("cart").scrollIntoView({ behavior: "smooth" });
+}
+
   // Send internal order email (no customer email)
   emailjs.send("service_ynszdmf", "template_gaxjw0r", {
     customer_name: customerName,
@@ -65,6 +71,7 @@ function checkout() {
     cart = [];
     updateCart();
     document.querySelectorAll('input[type="number"]').forEach(input => input.value = 1);
+    document.getElementById("cart-count").textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
   })
   .catch((error) => {
   console.error("EmailJS FAILED:", JSON.stringify(error));
