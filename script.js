@@ -1,14 +1,14 @@
 let cart = [];
 let totalPrice = 0;
 
-// Function to add items to the cart
+// Add item to cart
 function addToCart(productName, price, quantity) {
   quantity = parseInt(quantity); // Ensure quantity is an integer
   cart.push({ name: productName, price: price, quantity: quantity });
   updateCart();
 }
 
-// Function to update the cart display
+// Update cart display
 function updateCart() {
   const cartItems = document.getElementById("cart-items");
   const totalPriceElem = document.getElementById("total-price");
@@ -23,36 +23,32 @@ function updateCart() {
     });
   }
 
-  // Calculate total price
   totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
   totalPriceElem.textContent = totalPrice.toFixed(2);
 }
 
+// Checkout function
 function checkout() {
-  // Get customer information
   const customerName = document.getElementById("customer-name").value;
   const customerEmail = document.getElementById("customer-email").value;
   const customerAddress = document.getElementById("customer-address").value;
   const dropoffLocation = document.getElementById("dropoff-location").value;
   const customerPhone = document.getElementById("customer-phone").value;
 
-  // Check if required fields are filled
   if (!customerName || !customerEmail || !customerAddress || !dropoffLocation || !customerPhone) {
     alert("Please fill out all the fields before checking out.");
     return;
   }
 
-  // Generate order details from cart
-  const orderDetails = cart.map(item => `${item.name} - $${item.price} x ${item.quantity}`).join('\n');
-  const totalPrice = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
-
-  // Check if cart is empty
   if (cart.length === 0) {
-    alert('Your cart is empty. Please add some items before checking out.');
+    alert("Your cart is empty. Please add some items before checking out.");
     return;
   }
 
-  // Send internal order email via EmailJS
+  const orderDetails = cart.map(item => `${item.name} - $${item.price} x ${item.quantity}`).join('\n');
+  const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+  // Send internal order email (no customer email)
   emailjs.send("service_ynszdmf", "template_gaxjw0r", {
     customer_name: customerName,
     customer_email: customerEmail,
@@ -60,17 +56,18 @@ function checkout() {
     dropoff_location: dropoffLocation,
     customer_phone: customerPhone,
     order_details: orderDetails,
-    total_price: totalPrice.toFixed(2)
+    total_price: total.toFixed(2)
   })
   .then((response) => {
-    alert('Order placed successfully! Thank you for your order.');
-    console.log('SUCCESS!', response.status, response.text);
+    alert("Order placed successfully! Thank you for your order.");
+    console.log("EmailJS SUCCESS:", response.status, response.text);
     
-    // Clear cart and update display
     cart = [];
     updateCart();
-  }, (error) => {
-    alert('Failed to send order. Please try again.');
-    console.log('FAILED...', error);
+    document.querySelectorAll('input[type="number"]').forEach(input => input.value = 1);
+  })
+  .catch((error) => {
+    console.error("EmailJS FAILED:", error);
+    alert("Failed to send order. Please try again.");
   });
 }
