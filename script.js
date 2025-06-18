@@ -67,7 +67,8 @@ function checkout() {
     document.querySelectorAll('input[type="number"]').forEach(input => input.value = 1);
   })
   .catch((error) => {
-    console.error("EmailJS FAILED:", error);
-    alert("Failed to send order. Please try again.");
-  });
+  console.error("EmailJS FAILED:", JSON.stringify(error));
+  alert("Failed to send order. Error: " + JSON.stringify(error));
+});
+
 }
