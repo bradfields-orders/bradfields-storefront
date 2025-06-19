@@ -7,8 +7,7 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-<!-- Dark Mode Toggle in Top Right -->  
-<body>
+
   <!-- Dark Mode Toggle in Top Right -->
   <div class="theme-toggle-floating">
     <label class="switch">
@@ -52,7 +51,6 @@
     <section id="products">
       <h3>Available Media</h3>
       <div class="product-list">
-
         <div class="product">
           <h4>Laboratory Sample Labeling</h4>
           <p>Direct Thermal Labels for general purpose test tube labeling</p>
@@ -79,7 +77,6 @@
           <input type="number" id="qty-blood-label" value="1" min="1"/>
           <button onclick="addToCart('Blood Labeling', 35, document.getElementById('qty-blood-label').value)">Add to Cart</button>
         </div>
-
       </div>
     </section>
 
@@ -99,12 +96,17 @@
 
       <label for="customer-phone">Phone:</label>
       <input type="tel" id="customer-phone" required placeholder="Your phone number" />
+
+      <label for="customer-notes">Special Instructions or Notes:</label>
+      <textarea id="customer-notes" placeholder="Any additional order details or requests..."></textarea>
     </section>
 
-    <label for="customer-notes">Special Instructions or Notes:</label>
-<textarea id="customer-notes" placeholder="Any additional order details or requests..."></textarea>
+    <!-- Bottom Checkout CTA -->
+    <div class="bottom-checkout-bar">
+      <button onclick="checkout()">Checkout Now</button>
+    </div>
 
-    <!-- Optional fallback cart section (needed if scrollToCart is used) -->
+    <!-- Optional fallback cart section (if scrollToCart is used) -->
     <section id="cart" style="display: none;"></section>
 
     <footer>
