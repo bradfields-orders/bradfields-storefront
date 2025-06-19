@@ -25,6 +25,30 @@
   z-index: 1000;
 }
 
+.cart-controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 10px;
+}
+
+.cart-controls button {
+  background-color: #ddd;
+  border: none;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.cart-controls button:hover {
+  background-color: #bbb;
+}
+
+.item-total {
+  margin-left: 10px;
+  font-weight: bold;
+}
+
 body.dark-mode .theme-toggle-floating {
   background-color: rgba(30, 30, 30, 0.95);
   color: #fff;
