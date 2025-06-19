@@ -4,8 +4,14 @@
   padding: 0;
   box-sizing: border-box;
 }
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .product-list {
+    flex-direction: column;
+  }
+}
 
-/ *Product Hover */
+/* Product Hover */
 .product:hover {
   transform: translateY(-4px);
   box-shadow: 0 6px 14px rgba(0,0,0,0.1);
