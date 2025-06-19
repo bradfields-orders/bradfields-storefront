@@ -1,5 +1,5 @@
 /* Reset default padding and margin */
-body, h4, p, ul, li, div, section {
+body, h1, h2, h3, h4, p, ul, li, div, section {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -7,11 +7,10 @@ body, h4, p, ul, li, div, section {
 
 /* General body styling */
 body {
-  font-family: 'Roboto', sans-serif; /* Improved font */
-  background-color: #f0f2f5; /* Softer background color */
+  font-family: 'Roboto', sans-serif;
+  background-color: #f0f2f5;
   color: #333;
   line-height: 1.6;
-  margin: 0;
   padding: 20px;
 }
 
@@ -21,8 +20,9 @@ header {
   color: white;
   text-align: center;
   padding: 20px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Adds subtle shadow */
-  margin-bottom: 40px; /* Adds space between header and content */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 40px;
+  position: relative;
 }
 
 header h1 {
@@ -32,30 +32,50 @@ header h1 {
 
 header h2 {
   font-size: 1.5rem;
-  margin-bottom: 10px;
   font-weight: 300;
 }
 
+/* Logo styling */
 .logo {
-  max-width: 400px !important; /* Larger logo */
+  max-width: 400px;
   display: block;
-  margin: 0 auto 10px; /* Center it with some spacing below */
+  margin: 0 auto 10px;
 }
 
-/* Product section styling */
+/* Cart preview bubble */
+#cart-preview {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #28a745;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 25px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+  z-index: 1000;
+  transition: background-color 0.3s ease;
+}
+
+#cart-preview:hover {
+  background-color: #218838;
+}
+
+/* Product section */
 #products {
   max-width: 1000px;
-  margin: 0 auto; /* Center the product list */
+  margin: 0 auto;
 }
 
 #products h3 {
   font-size: 1.8rem;
   color: #007bff;
-  margin-bottom: 20px;
   text-align: center;
+  margin-bottom: 20px;
 }
 
-/* Flexbox layout for product list */
 #products .product-list {
   display: flex;
   flex-wrap: wrap;
@@ -63,14 +83,13 @@ header h2 {
   justify-content: space-between;
 }
 
-/* Each product styling */
 #products .product {
   background-color: white;
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 10px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  flex-basis: calc(33.333% - 20px); /* Three products per row */
+  flex-basis: calc(33.333% - 20px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -78,7 +97,7 @@ header h2 {
 }
 
 #products .product:hover {
-  transform: translateY(-5px); /* Adds hover effect */
+  transform: translateY(-5px);
   box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
 }
 
@@ -95,26 +114,29 @@ header h2 {
 }
 
 #products input {
-  width: 50px;
+  width: 60px;
   margin-bottom: 10px;
+  padding: 6px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 #products button {
-  background-color: #28a745; /* Green button */
+  background-color: #28a745;
   color: white;
   border: none;
   padding: 10px 15px;
   border-radius: 5px;
   cursor: pointer;
-  align-self: flex-start;
   transition: background-color 0.3s ease;
 }
 
 #products button:hover {
-  background-color: #218838; /* Darker green on hover */
+  background-color: #218838;
 }
 
-/* Cart and customer info sections */
+/* Cart and Customer Info */
 #customer-info, #cart {
   max-width: 800px;
   margin: 40px auto;
@@ -128,11 +150,12 @@ header h2 {
 #customer-info h3, #cart h3 {
   font-size: 1.5rem;
   color: #007bff;
-  margin-bottom: 20px;
   text-align: center;
+  margin-bottom: 20px;
 }
 
-#customer-info input, #cart input {
+#customer-info input,
+#cart input {
   display: block;
   margin-bottom: 15px;
   padding: 10px;
@@ -152,24 +175,20 @@ header h2 {
   font-weight: bold;
 }
 
-#cart-preview {
+/* Toast Notification */
+#toast {
   position: fixed;
-  top: 20px;
-  right: 20px;
-  background-color: #28a745;
-  color: white;
-  padding: 10px 15px;
-  border-radius: 25px;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 8px;
   font-size: 14px;
-  font-weight: bold;
-  cursor: pointer;
-  box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
-  z-index: 1000;
-  transition: background-color 0.3s ease;
-}
-
-#cart-preview:hover {
-  background-color: #218838;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 9999;
 }
 
 /* Footer styling */
@@ -178,20 +197,6 @@ footer {
   margin-top: 50px;
   color: #666;
   font-size: 0.9rem;
-}
-#toast {
-  position: fixed;
-  bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #333;
-  color: #fff;
-  padding: 12px 20px;
-  border-radius: 8px;
-  font-size: 14px;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  z-index: 9999;
 }
 
 /* General button styling */
