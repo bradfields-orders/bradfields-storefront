@@ -5,6 +5,14 @@
   box-sizing: border-box;
 }
 
+/* Sticky Navigation Header */
+header {
+  position: sticky;
+  top: 0;
+  background-color: #007bff;
+  z-index: 1000;
+}
+
 / *Product Hover */
 .product:hover {
   transform: translateY(-4px);
