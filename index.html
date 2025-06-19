@@ -3,97 +3,96 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Bradfield's Computer Supply - Label Media Store</title>
-  <link rel="stylesheet" href="styles.css"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
+  <title>Bradfield's Computer Supply - Zebra Media Store</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
-  <!-- Hero / Header -->
-  <header class="hero">
-    <img src="Bradfields_Logo.jpg" alt="Bradfield's Computer Supply Logo" class="logo">
-    <h1>Bradfield’s Computer Supply</h1>
-    <p class="subheadline">Zebra Label Media Store</p>
-    <div id="cart-preview" onclick="scrollToCart()">
-      🛒 <span id="cart-count">0</span> item(s)
-    </div>
-  </header>
+  <div class="container">
+    <header>
+      <img src="Bradfields_Logo.jpg" alt="Bradfield's Logo" class="logo" />
+      <h1>Bradfield's Computer Supply</h1>
+      <h2>Zebra Label Media Store</h2>
+      <div id="cart-preview" onclick="scrollToCart()">🛒 <span id="cart-count">0</span> item(s)</div>
+    </header>
 
-  <main class="container">
-    <!-- Product Section -->
     <section id="products">
-      <h2>Available Media</h2>
-      <div class="product-grid">
-
-        <!-- Product Card -->
-        <div class="product-card">
-          <h3>Laboratory Sample Labeling</h3>
-          <p class="desc">Direct Thermal Labels – General purpose test tube labeling</p>
+      <h3>Available Media</h3>
+      <div class="product-list">
+        <div class="product">
+          <h4>Laboratory Sample Labeling</h4>
+          <p>Direct Thermal Labels for general purpose test tube labeling</p>
           <p class="price">$25.00</p>
-          <input type="number" id="qty-sample-label" value="1" min="1">
+          <label for="qty-sample-label">Quantity:</label>
+          <input type="number" id="qty-sample-label" value="1" min="1"/>
           <button onclick="addToCart('Laboratory Sample Labeling', 25, document.getElementById('qty-sample-label').value)">Add to Cart</button>
         </div>
 
-        <!-- Product Card -->
-        <div class="product-card">
-          <h3>Laboratory Cryogenic Labels</h3>
-          <p class="desc">Gloss Polypropylene – Designed for freeze-thaw cycles</p>
+        <div class="product">
+          <h4>Cryogenic Polypropylene Labels</h4>
+          <p>Gloss labels for freeze-thaw cycle specimen containers</p>
           <p class="price">$45.00</p>
-          <input type="number" id="qty-cryogenic-label" value="1" min="1">
+          <label for="qty-cryogenic-label">Quantity:</label>
+          <input type="number" id="qty-cryogenic-label" value="1" min="1"/>
           <button onclick="addToCart('Cryogenic Polypropylene Labels', 45, document.getElementById('qty-cryogenic-label').value)">Add to Cart</button>
         </div>
 
-        <!-- Product Card -->
-        <div class="product-card">
-          <h3>Blood Labeling</h3>
-          <p class="desc">Polypropylene with FDA 175.105 compliant adhesive</p>
+        <div class="product">
+          <h4>Blood Labeling</h4>
+          <p>Polypropylene label with all-temp acrylic adhesive</p>
           <p class="price">$35.00</p>
-          <input type="number" id="qty-blood-label" value="1" min="1">
+          <label for="qty-blood-label">Quantity:</label>
+          <input type="number" id="qty-blood-label" value="1" min="1"/>
           <button onclick="addToCart('Blood Labeling', 35, document.getElementById('qty-blood-label').value)">Add to Cart</button>
         </div>
-
       </div>
     </section>
 
-    <!-- Customer Information -->
     <section id="customer-info">
-      <h2>Customer Information</h2>
-      <label>Name: <input type="text" id="customer-name" placeholder="Enter your name" required></label>
-      <label>Email: <input type="email" id="customer-email" placeholder="Enter your email" required></label>
-      <label>Address: <input type="text" id="customer-address" placeholder="Enter your address" required></label>
-      <label>Drop-off Location: <input type="text" id="dropoff-location" placeholder="Enter drop-off location" required></label>
-      <label>Phone Number: <input type="tel" id="customer-phone" placeholder="Enter your phone number" required></label>
+      <h3>Customer Information</h3>
+      <label for="customer-name">Name:</label>
+      <input type="text" id="customer-name" required placeholder="Your name" />
+
+      <label for="customer-email">Email:</label>
+      <input type="email" id="customer-email" required placeholder="Your email" />
+
+      <label for="customer-address">Address:</label>
+      <input type="text" id="customer-address" required placeholder="Shipping address" />
+
+      <label for="dropoff-location">Drop-off Location:</label>
+      <input type="text" id="dropoff-location" required placeholder="Clinic or site location" />
+
+      <label for="customer-phone">Phone:</label>
+      <input type="tel" id="customer-phone" required placeholder="Your phone number" />
     </section>
 
-    <!-- Cart Section -->
     <section id="cart">
-      <h2>Your Cart</h2>
+      <h3>Your Cart</h3>
       <ul id="cart-items">
         <li>No items in cart.</li>
       </ul>
       <p>Total: $<span id="total-price">0.00</span></p>
       <button onclick="checkout()">Checkout</button>
     </section>
-  </main>
 
-  <!-- Footer -->
-  <footer>
-    <p>Contact us at: <a href="mailto:orders@bradfields.com">orders@bradfields.com</a></p>
-    <p>Find Us: 2306 SW Adams St, Peoria, IL 61602</p>
-    <p>Phone: 800-747-7453 | Fax: 309-672-1756</p>
-  </footer>
+    <footer>
+      <p>Contact us at: <a href="mailto:orders@bradfields.com">orders@bradfields.com</a></p>
+      <p>Find Us: 2306 SW Adams St, Peoria, IL 61602</p>
+      <p>Phone: 800-747-7453 | Fax: 309-672-1756</p>
+    </footer>
+  </div>
 
-  <!-- Toast Notification -->
-  <div id="toast" style="display: none;"></div>
+  <!-- Toast notification -->
+  <div id="toast" style="display:none;"></div>
 
-  <!-- Scripts -->
+  <!-- EmailJS -->
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script>
     (function() {
       emailjs.init({ publicKey: "ufyGc8ugbV2I47HmZ" });
     })();
   </script>
-  <script src="script.js"></script>
 
+  <script src="script.js"></script>
 </body>
 </html>
