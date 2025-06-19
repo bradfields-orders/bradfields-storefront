@@ -38,19 +38,34 @@ function addToCart(productName, price, quantity) {
   setTimeout(() => activeButton.classList.remove("added"), 300);
 }
 
-// ✅ Remove item from cart by index
+// Increase quantity
+function increaseQuantity(index) {
+  cart[index].quantity++;
+  updateCart();
+}
+
+// Decrease quantity (minimum 1)
+function decreaseQuantity(index) {
+  if (cart[index].quantity > 1) {
+    cart[index].quantity--;
+  } else {
+    removeFromCart(index);
+  }
+  updateCart();
+}
+
+// Remove item
 function removeFromCart(index) {
   cart.splice(index, 1);
   updateCart();
   showToast("Item removed from cart");
 }
 
-// ✅ Update cart display and count bubble
+// Update cart
 function updateCart() {
   const cartItems = document.getElementById("cart-items");
   const totalPriceElem = document.getElementById("total-price");
   const cartCountElem = document.getElementById("cart-count");
-
   cartItems.innerHTML = '';
 
   if (cart.length === 0) {
@@ -60,7 +75,13 @@ function updateCart() {
       const itemTotalPrice = (item.price * item.quantity).toFixed(2);
       const li = document.createElement("li");
       li.innerHTML = `
-        ${item.name} (x${item.quantity}) - $${itemTotalPrice}
+        ${item.name} 
+        <div class="cart-controls">
+          <button onclick="decreaseQuantity(${index})">➖</button>
+          <span>${item.quantity}</span>
+          <button onclick="increaseQuantity(${index})">➕</button>
+        </div>
+        <span class="item-total">$${itemTotalPrice}</span>
         <button class="remove-btn" onclick="removeFromCart(${index})">🗑️</button>
       `;
       cartItems.appendChild(li);
@@ -74,13 +95,12 @@ function updateCart() {
   cartCountElem.textContent = totalItems;
 }
 
-// Toast notification
+// Toast
 function showToast(message) {
   const toast = document.getElementById("toast");
   toast.textContent = message;
   toast.style.display = "block";
   toast.style.opacity = "1";
-
   setTimeout(() => {
     toast.style.opacity = "0";
     setTimeout(() => {
@@ -89,12 +109,12 @@ function showToast(message) {
   }, 2000);
 }
 
-// Scroll to cart section
+// Scroll to cart
 function scrollToCart() {
   document.getElementById("cart").scrollIntoView({ behavior: "smooth" });
 }
 
-// ✅ Checkout function (includes customer notes)
+// Checkout
 function checkout() {
   const customerName = document.getElementById("customer-name").value;
   const customerEmail = document.getElementById("customer-email").value;
