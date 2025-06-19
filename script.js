@@ -1,6 +1,26 @@
 let cart = [];
 let totalPrice = 0;
 
+function toggleDarkMode() {
+  document.body.classList.toggle('dark-mode');
+  localStorage.setItem('dark-mode', document.body.classList.contains('dark-mode'));
+}
+
+window.onload = function () {
+  if (localStorage.getItem('dark-mode') === 'true') {
+    document.body.classList.add('dark-mode');
+    document.getElementById('dark-toggle').checked = true;
+  }
+};
+
+// Update the checkout() function to include customer notes
+const customerNotes = document.getElementById("customer-notes").value;
+
+emailjs.send("service_ynszdmf", "template_gaxjw0r", {
+  // ...existing fields...
+  customer_notes: customerNotes,
+});
+
 // Slide in Cart feature
 function toggleCart() {
   document.getElementById("cart-drawer").classList.toggle("open");
