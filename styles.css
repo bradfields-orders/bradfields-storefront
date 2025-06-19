@@ -26,27 +26,37 @@
 }
 
 .bottom-checkout-bar {
-  margin-top: 30px;
-  text-align: center;
-  padding: 20px;
-  background-color: #fff;
-  border-top: 1px solid #ddd;
-  box-shadow: 0 -2px 6px rgba(0,0,0,0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f9f9f9;
+  padding: 15px 20px;
+  border-top: 1px solid #ccc;
+  border-radius: 8px;
+  margin: 40px auto 0;
+  max-width: 800px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.bottom-checkout-bar .checkout-total {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #333;
 }
 
 .bottom-checkout-bar button {
-  background-color: #007bff;
+  background-color: #28a745;
   color: white;
-  font-size: 1rem;
-  padding: 12px 24px;
-  border-radius: 8px;
+  padding: 10px 20px;
+  border-radius: 5px;
   border: none;
+  font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .bottom-checkout-bar button:hover {
-  background-color: #0056b3;
+  background-color: #218838;
 }
 
 body.dark-mode .bottom-checkout-bar {
