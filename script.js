@@ -28,38 +28,48 @@ function filterProducts() {
 
 // Add item to cart
 function addToCart(productName, price, quantity) {
-  quantity = parseInt(quantity); // Ensure quantity is an integer
+  quantity = parseInt(quantity);
   cart.push({ name: productName, price: price, quantity: quantity });
   updateCart();
   showToast(`${productName} added to cart`);
 
-  // Animate Add to Cart button (optional)
   const activeButton = event.target;
   activeButton.classList.add("added");
   setTimeout(() => activeButton.classList.remove("added"), 300);
 }
 
-// Update cart display and cart count bubble
+// ✅ Remove item from cart by index
+function removeFromCart(index) {
+  cart.splice(index, 1);
+  updateCart();
+  showToast("Item removed from cart");
+}
+
+// ✅ Update cart display and count bubble
 function updateCart() {
   const cartItems = document.getElementById("cart-items");
   const totalPriceElem = document.getElementById("total-price");
   const cartCountElem = document.getElementById("cart-count");
-  cartItems.innerHTML = ''; // Clear previous items
+
+  cartItems.innerHTML = '';
 
   if (cart.length === 0) {
     cartItems.innerHTML = '<li>No items in cart.</li>';
   } else {
-    cart.forEach((item) => {
+    cart.forEach((item, index) => {
       const itemTotalPrice = (item.price * item.quantity).toFixed(2);
-      cartItems.innerHTML += `<li>${item.name} (x${item.quantity}) - $${itemTotalPrice}</li>`;
+      const li = document.createElement("li");
+      li.innerHTML = `
+        ${item.name} (x${item.quantity}) - $${itemTotalPrice}
+        <button class="remove-btn" onclick="removeFromCart(${index})">🗑️</button>
+      `;
+      cartItems.appendChild(li);
     });
   }
 
-  // Update total price
   totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
   totalPriceElem.textContent = totalPrice.toFixed(2);
 
-  // ✅ Update cart count bubble
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
   cartCountElem.textContent = totalItems;
 }
@@ -79,7 +89,7 @@ function showToast(message) {
   }, 2000);
 }
 
-// Smooth scroll to cart section (fallback)
+// Scroll to cart section
 function scrollToCart() {
   document.getElementById("cart").scrollIntoView({ behavior: "smooth" });
 }
@@ -149,5 +159,4 @@ Total: $${total.toFixed(2)}
   });
 }
 
-// ✅ Initialize cart UI state
 updateCart();
