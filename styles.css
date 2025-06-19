@@ -1,215 +1,117 @@
-/* Reset default padding and margin */
-body, h1, h2, h3, h4, p, ul, li, div, section {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Thank You - Bradfield's Media Store</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      background-color: #f4f8fb;
+      font-family: 'Roboto', sans-serif;
+      padding: 20px;
+      text-align: center;
+    }
 
-/* General body styling */
-body {
-  font-family: 'Roboto', sans-serif;
-  background-color: #f0f2f5;
-  color: #333;
-  line-height: 1.6;
-  padding: 20px;
-}
+    .thank-you-box {
+      background: #fff;
+      padding: 30px;
+      max-width: 600px;
+      margin: 50px auto;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
 
-/* Header styling */
-header {
-  background-color: #007bff;
-  color: white;
-  text-align: center;
-  padding: 20px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  margin-bottom: 40px;
-  position: relative;
-}
+    h1 {
+      color: #28a745;
+      margin-bottom: 10px;
+    }
 
-header h1 {
-  font-size: 2.5rem;
-  margin-bottom: 10px;
-}
+    p.lead {
+      font-size: 1.1rem;
+      color: #333;
+      margin-bottom: 30px;
+    }
 
-header h2 {
-  font-size: 1.5rem;
-  font-weight: 300;
-}
+    .summary {
+      text-align: left;
+      margin-top: 20px;
+    }
 
-/* Logo styling */
-.logo {
-  max-width: 400px;
-  display: block;
-  margin: 0 auto 10px;
-}
+    .summary h2 {
+      font-size: 1.2rem;
+      color: #007bff;
+      margin-bottom: 10px;
+    }
 
-/* Cart preview bubble */
-#cart-preview {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background-color: #28a745;
-  color: white;
-  padding: 10px 16px;
-  border-radius: 25px;
-  font-size: 14px;
-  font-weight: bold;
-  cursor: pointer;
-  box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
-  z-index: 1000;
-  transition: background-color 0.3s ease;
-}
+    .summary pre {
+      background: #f9f9f9;
+      padding: 15px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      white-space: pre-wrap;
+    }
 
-#cart-preview:hover {
-  background-color: #218838;
-}
+    .buttons {
+      margin-top: 30px;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
 
-/* Product section */
-#products {
-  max-width: 1000px;
-  margin: 0 auto;
-}
+    .button {
+      background-color: #007bff;
+      color: white;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-size: 14px;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
 
-#products h3 {
-  font-size: 1.8rem;
-  color: #007bff;
-  text-align: center;
-  margin-bottom: 20px;
-}
+    .button:hover {
+      background-color: #0056b3;
+    }
 
-#products .product-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: space-between;
-}
+    @media print {
+      .buttons, .thank-you-box h1, .thank-you-box p {
+        display: none;
+      }
+      .summary {
+        margin-top: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="thank-you-box">
+    <h1>🎉 Thank You!</h1>
+    <p class="lead">Your order has been placed successfully.</p>
 
-#products .product {
-  background-color: white;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  flex-basis: calc(33.333% - 20px);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
+    <div class="summary">
+      <h2>Order Summary:</h2>
+      <pre id="order-summary">Loading...</pre>
+    </div>
 
-#products .product:hover {
-  transform: translateY(-5px);
-  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
-}
+    <div class="buttons">
+      <a href="index.html" class="button">Return to Store</a>
+      <button class="button" onclick="window.print()">Print Summary</button>
+    </div>
+  </div>
 
-#products h4 {
-  font-size: 1.2rem;
-  color: #333;
-  margin-bottom: 10px;
-}
+  <script>
+    const summaryEl = document.getElementById('order-summary');
+    const orderData = localStorage.getItem('bradfields-order-summary');
 
-#products p {
-  font-size: 1rem;
-  color: #666;
-  margin-bottom: 10px;
-}
-
-#products input {
-  width: 60px;
-  margin-bottom: 10px;
-  padding: 6px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-#products button {
-  background-color: #28a745;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-#products button:hover {
-  background-color: #218838;
-}
-
-/* Cart and Customer Info */
-#customer-info, #cart {
-  max-width: 800px;
-  margin: 40px auto;
-  padding: 20px;
-  background-color: white;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-#customer-info h3, #cart h3 {
-  font-size: 1.5rem;
-  color: #007bff;
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-#customer-info input,
-#cart input {
-  display: block;
-  margin-bottom: 15px;
-  padding: 10px;
-  width: 100%;
-  max-width: 400px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-#cart-items li {
-  font-size: 1rem;
-  color: #333;
-}
-
-#total-price {
-  font-size: 1.2rem;
-  font-weight: bold;
-}
-
-/* Toast Notification */
-#toast {
-  position: fixed;
-  bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #333;
-  color: #fff;
-  padding: 12px 20px;
-  border-radius: 8px;
-  font-size: 14px;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  z-index: 9999;
-}
-
-/* Footer styling */
-footer {
-  text-align: center;
-  margin-top: 50px;
-  color: #666;
-  font-size: 0.9rem;
-}
-
-/* General button styling */
-button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: #0056b3;
-}
+    if (orderData) {
+      summaryEl.textContent = orderData;
+      localStorage.removeItem('bradfields-order-summary');
+    } else {
+      summaryEl.textContent = "No summary available.";
+    }
+  </script>
+</body>
+</html>
