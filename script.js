@@ -5,6 +5,11 @@ let totalPrice = 0;
 button.classList.add("added");
 setTimeout(() => button.classList.remove("added"), 300);
 
+// Slide in Cart feature
+function toggleCart() {
+  document.getElementById("cart-drawer").classList.toggle("open");
+}
+
 // Search bar
 function filterProducts() {
   const query = document.getElementById("product-search").value.toLowerCase();
