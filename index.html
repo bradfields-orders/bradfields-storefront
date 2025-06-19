@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
- <input type="text" id="product-search" placeholder="Search media..." oninput="filterProducts()"> 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -9,36 +8,41 @@
 </head>
 <body>
 
- <div id="cart-drawer" class="cart-drawer">
-  <div class="cart-header">
-    <h3>Your Cart</h3>
-    <button onclick="toggleCart()" class="close-drawer">&times;</button>
+  <!-- Slide-in Cart Drawer -->
+  <div id="cart-drawer" class="cart-drawer">
+    <div class="cart-header">
+      <h3>Your Cart</h3>
+      <button onclick="toggleCart()" class="close-drawer">&times;</button>
+    </div>
+    <ul id="cart-items">
+      <li>No items in cart.</li>
+    </ul>
+    <p class="cart-total">Total: $<span id="total-price">0.00</span></p>
+    <button onclick="checkout()">Checkout</button>
   </div>
-  <ul id="cart-items">
-    <li>No items in cart.</li>
-  </ul>
-  <p class="cart-total">Total: $<span id="total-price">0.00</span></p>
-  <button onclick="checkout()">Checkout</button>
-</div>
 
-<!-- Toast Notification -->
-<div id="toast" style="display: none"></div>
+  <!-- Toast Notification -->
+  <div id="toast" style="display: none"></div>
 
-<!-- Cart Bubble Icon -->
-<div id="cart-preview" onclick="toggleCart()">
-  🛒 <span id="cart-count">0</span> item(s)
-</div>
+  <!-- Cart Bubble Icon -->
+  <div id="cart-preview" onclick="toggleCart()">
+    🛒 <span id="cart-count">0</span> item(s)
+  </div>
+
   <div class="container">
     <header>
       <img src="Bradfields_Logo.jpg" alt="Bradfield's Logo" class="logo" />
       <h1>Bradfield's Computer Supply</h1>
       <h2>Zebra Label Media Store</h2>
-      <div id="cart-preview" onclick="scrollToCart()">🛒 <span id="cart-count">0</span> item(s)</div>
     </header>
+
+    <!-- Search bar -->
+    <input type="text" id="product-search" placeholder="Search media..." oninput="filterProducts()" />
 
     <section id="products">
       <h3>Available Media</h3>
       <div class="product-list">
+
         <div class="product">
           <h4>Laboratory Sample Labeling</h4>
           <p>Direct Thermal Labels for general purpose test tube labeling</p>
@@ -65,6 +69,7 @@
           <input type="number" id="qty-blood-label" value="1" min="1"/>
           <button onclick="addToCart('Blood Labeling', 35, document.getElementById('qty-blood-label').value)">Add to Cart</button>
         </div>
+
       </div>
     </section>
 
@@ -86,13 +91,8 @@
       <input type="tel" id="customer-phone" required placeholder="Your phone number" />
     </section>
 
-      <h3>Your Cart</h3>
-      <ul id="cart-items">
-        <li>No items in cart.</li>
-      </ul>
-      <p>Total: $<span id="total-price">0.00</span></p>
-      <button onclick="checkout()">Checkout</button>
-    </section>
+    <!-- Optional fallback cart section (needed if scrollToCart is used) -->
+    <section id="cart" style="display: none;"></section>
 
     <footer>
       <p>Contact us at: <a href="mailto:orders@bradfields.com">orders@bradfields.com</a></p>
@@ -100,9 +100,6 @@
       <p>Phone: 800-747-7453 | Fax: 309-672-1756</p>
     </footer>
   </div>
-
-  <!-- Toast notification -->
-  <div id="toast" style="display:none;"></div>
 
   <!-- EmailJS -->
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
@@ -112,6 +109,7 @@
     })();
   </script>
 
+  <!-- Custom Script -->
   <script src="script.js"></script>
 </body>
 </html>
