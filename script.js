@@ -144,6 +144,13 @@ function checkout() {
   const customerPhone = document.getElementById("customer-phone").value;
   const customerNotes = document.getElementById("customer-notes").value;
 
+  // Honeypot check
+  const honeypot = document.getElementById("company").value;
+  if (honeypot !== "") {
+    console.warn("Spam detected. Submission aborted.");
+    return; // silently fail
+  }
+
   if (!customerName || !customerEmail || !customerAddress || !dropoffLocation || !customerPhone) {
     alert("Please fill out all the fields before checking out.");
     return;
