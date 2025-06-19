@@ -9,6 +9,25 @@
 </head>
 <body>
 
+ <div id="cart-drawer" class="cart-drawer">
+  <div class="cart-header">
+    <h3>Your Cart</h3>
+    <button onclick="toggleCart()" class="close-drawer">&times;</button>
+  </div>
+  <ul id="cart-items">
+    <li>No items in cart.</li>
+  </ul>
+  <p class="cart-total">Total: $<span id="total-price">0.00</span></p>
+  <button onclick="checkout()">Checkout</button>
+</div>
+
+<!-- Toast Notification -->
+<div id="toast" style="display: none"></div>
+
+<!-- Cart Bubble Icon -->
+<div id="cart-preview" onclick="toggleCart()">
+  🛒 <span id="cart-count">0</span> item(s)
+</div>
   <div class="container">
     <header>
       <img src="Bradfields_Logo.jpg" alt="Bradfield's Logo" class="logo" />
