@@ -101,10 +101,11 @@
       <textarea id="customer-notes" placeholder="Any additional order details or requests..."></textarea>
     </section>
 
-    <!-- Bottom Checkout CTA -->
-    <div class="bottom-checkout-bar">
-      <button onclick="checkout()">Checkout Now</button>
-    </div>
+    <!-- Bottom Checkout CTA with Total -->
+<div class="bottom-checkout-bar">
+  <span class="checkout-total">Total: $<span id="bottom-total">0.00</span></span>
+  <button onclick="checkout()">Checkout Now</button>
+</div>
 
     <!-- Optional fallback cart section (if scrollToCart is used) -->
     <section id="cart" style="display: none;"></section>
