@@ -67,9 +67,6 @@ function updateCart() {
   const totalPriceElem = document.getElementById("total-price");
   const cartCountElem = document.getElementById("cart-count");
   const bottomTotalElem = document.getElementById("bottom-total");
-if (bottomTotalElem) {
-  bottomTotalElem.textContent = totalPrice.toFixed(2);
-}
 
   cartItems.innerHTML = '';
 
@@ -93,8 +90,15 @@ if (bottomTotalElem) {
     });
   }
 
+  // ✅ Recalculate totalPrice first
   totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  if (isNaN(totalPrice)) totalPrice = 0;
+
+  // ✅ Update both totals after calculation
   totalPriceElem.textContent = totalPrice.toFixed(2);
+  if (bottomTotalElem) {
+    bottomTotalElem.textContent = totalPrice.toFixed(2);
+  }
 
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
   cartCountElem.textContent = totalItems;
@@ -126,10 +130,8 @@ window.addEventListener("scroll", () => {
   if (!bar) return;
 
   if (window.scrollY > lastScrollY) {
-    // Scrolling down
     bar.classList.add("hide-bar");
   } else {
-    // Scrolling up
     bar.classList.remove("hide-bar");
   }
   lastScrollY = window.scrollY;
@@ -148,7 +150,7 @@ function checkout() {
   const honeypot = document.getElementById("company").value;
   if (honeypot !== "") {
     console.warn("Spam detected. Submission aborted.");
-    return; // silently fail
+    return;
   }
 
   if (!customerName || !customerEmail || !customerAddress || !dropoffLocation || !customerPhone) {
@@ -207,4 +209,5 @@ Total: $${total.toFixed(2)}
   });
 }
 
+// Initialize cart display
 updateCart();
