@@ -5,6 +5,12 @@
   box-sizing: border-box;
 }
 
+/ *Product Hover */
+.product:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.1);
+}
+
 /* Body and layout */
 body {
   font-family: 'Roboto', sans-serif;
