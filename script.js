@@ -85,7 +85,23 @@ function checkout() {
     total_price: total.toFixed(2)
   })
   .then((response) => {
-    window.location.href = "thankyou.html";
+    // Save order summary to localStorage for thankyou.html
+const summaryText = `
+Customer: ${customerName}
+Email: ${customerEmail}
+Phone: ${customerPhone}
+Address: ${customerAddress}
+Drop-off Location: ${dropoffLocation}
+
+Order:
+${orderDetails}
+
+Total: $${total.toFixed(2)}
+`;
+
+localStorage.setItem("bradfields-order-summary", summaryText);
+window.location.href = "thankyou.html";
+
     console.log("EmailJS SUCCESS:", response.status, response.text);
 
     // Reset everything
