@@ -1,6 +1,10 @@
 let cart = [];
 let totalPrice = 0;
 
+// Animated Add to Cart Button
+button.classList.add("added");
+setTimeout(() => button.classList.remove("added"), 300);
+
 // Search bar
 function filterProducts() {
   const query = document.getElementById("product-search").value.toLowerCase();
