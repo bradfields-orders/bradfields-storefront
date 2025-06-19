@@ -85,7 +85,7 @@ function checkout() {
     total_price: total.toFixed(2)
   })
   .then((response) => {
-    alert("Order placed successfully! Thank you for your order.");
+    window.location.href = "thankyou.html";
     console.log("EmailJS SUCCESS:", response.status, response.text);
     
     // Reset everything
