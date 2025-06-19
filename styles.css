@@ -1,122 +1,206 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Thank You - Bradfield's Media Store</title>
-  <link rel="stylesheet" href="styles.css" />
-  <style>
-    body {
-      background-color: #f4f8fb;
-      font-family: 'Roboto', sans-serif;
-      padding: 20px;
-      text-align: center;
-    }
+/* Base reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-    .thank-you-box {
-      background: #fff;
-      padding: 30px;
-      max-width: 600px;
-      margin: 50px auto;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
+/* Body and layout */
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f4f8fb;
+  color: #333;
+  line-height: 1.6;
+  padding: 20px;
+}
 
-    h1 {
-      color: #28a745;
-      margin-bottom: 10px;
-    }
-
-    p.lead {
-      font-size: 1.1rem;
-      color: #333;
-      margin-bottom: 30px;
-    }
-
-    .summary {
-      text-align: left;
-      margin-top: 20px;
-    }
-
-    .summary h2 {
-      font-size: 1.2rem;
-      color: #007bff;
-      margin-bottom: 10px;
-    }
-
-    .summary pre {
-      background: #f9f9f9;
-      padding: 15px;
-      border-radius: 8px;
-      font-size: 0.95rem;
-      white-space: pre-wrap;
-    }
-
-    .buttons {
-      margin-top: 30px;
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      flex-wrap: wrap;
-    }
-
-    .button {
-      background-color: #007bff;
-      color: white;
-      text-decoration: none;
-      padding: 10px 20px;
-      border-radius: 5px;
-      font-size: 14px;
-      border: none;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-
-    .button:hover {
-      background-color: #0056b3;
-    }
-
-    @media print {
-      .buttons, .thank-you-box h1, .thank-you-box p {
-        display: none;
-      }
-      .summary {
-        margin-top: 0;
-      }
-    }
-  </style>
-</head>
-<body>
-  <div class="thank-you-box">
-    <h1>🎉 Thank You!</h1>
-    <p class="lead">Your order has been placed successfully.</p>
-
-    <div class="summary">
-      <h2>Order Summary:</h2>
-      <pre id="order-summary">Loading...</pre>
-    </div>
-
-    <div class="buttons">
-      <a href="index.html" class="button">Return to Store</a>
-      <button class="button" onclick="window.print()">Print Summary</button>
-    </div>
-  </div>
-
+/* Centering container */
 .container {
   max-width: 1100px;
   margin: 0 auto;
   padding: 0 20px;
 }
-  <script>
-    const summaryEl = document.getElementById('order-summary');
-    const orderData = localStorage.getItem('bradfields-order-summary');
 
-    if (orderData) {
-      summaryEl.textContent = orderData;
-      localStorage.removeItem('bradfields-order-summary');
-    } else {
-      summaryEl.textContent = "No summary available.";
-    }
-  </script>
-</body>
-</html>
+/* Header styling */
+header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.logo {
+  max-width: 300px;
+  margin: 0 auto 15px;
+  display: block;
+}
+
+h1 {
+  font-size: 2.5rem;
+  color: #007bff;
+}
+
+h2 {
+  font-size: 1.5rem;
+  color: #555;
+  margin-top: 10px;
+}
+
+/* Cart preview bubble */
+#cart-preview {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #28a745;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 25px;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  z-index: 999;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+#cart-preview:hover {
+  background-color: #218838;
+}
+
+/* Products */
+#products h3 {
+  font-size: 1.8rem;
+  color: #007bff;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.product-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.product {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  width: 300px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease;
+}
+
+.product:hover {
+  transform: translateY(-5px);
+}
+
+.product h4 {
+  margin-bottom: 8px;
+  font-size: 1.2rem;
+}
+
+.product p {
+  margin-bottom: 10px;
+  color: #555;
+}
+
+.product input[type="number"] {
+  width: 60px;
+  margin-bottom: 10px;
+}
+
+.product button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.product button:hover {
+  background-color: #218838;
+}
+
+/* Customer Info & Cart */
+#customer-info,
+#cart {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 40px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+#customer-info h3,
+#cart h3 {
+  text-align: center;
+  color: #007bff;
+  margin-bottom: 20px;
+}
+
+#customer-info input,
+#cart input {
+  display: block;
+  margin: 10px auto;
+  padding: 10px;
+  width: 90%;
+  max-width: 400px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Cart items */
+#cart-items {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 10px;
+}
+
+#cart-items li {
+  margin-bottom: 6px;
+}
+
+#total-price {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+/* Toast Notification */
+#toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #333;
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 9999;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  margin-top: 50px;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+/* Buttons */
+button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
