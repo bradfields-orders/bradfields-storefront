@@ -75,6 +75,20 @@ input:checked + .slider:before {
   color: #555;
 }
 
+/* Remove Button */
+.remove-btn {
+  margin-left: 10px;
+  background: none;
+  border: none;
+  color: #dc3545;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.remove-btn:hover {
+  color: #a71d2a;
+}
+
 /* Dark Mode Styles */
 body.dark-mode {
   background-color: #121212;
