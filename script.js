@@ -87,7 +87,7 @@ function checkout() {
   .then((response) => {
     window.location.href = "thankyou.html";
     console.log("EmailJS SUCCESS:", response.status, response.text);
-    
+
     // Reset everything
     cart = [];
     updateCart();
@@ -98,3 +98,6 @@ function checkout() {
     alert("Failed to send order. Error: " + JSON.stringify(error));
   });
 }
+
+// ✅ Initialize cart UI state on page load
+updateCart();
