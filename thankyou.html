@@ -3,47 +3,94 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Thank You - Bradfield's Computer Supply</title>
-  <link rel="stylesheet" href="styles.css">
+  <title>Thank You - Bradfield's Media Store</title>
+  <link rel="stylesheet" href="styles.css" />
   <style>
-    .thank-you {
-      max-width: 700px;
-      margin: 80px auto;
-      padding: 40px;
-      background-color: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    body {
+      background-color: #f4f8fb;
+      font-family: 'Roboto', sans-serif;
+      padding: 20px;
       text-align: center;
     }
-    .thank-you h1 {
+
+    .thank-you-box {
+      background: #fff;
+      padding: 30px;
+      max-width: 600px;
+      margin: 50px auto;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    h1 {
       color: #28a745;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
     }
-    .thank-you p {
+
+    p.lead {
       font-size: 1.1rem;
-      color: #555;
+      color: #333;
+      margin-bottom: 30px;
     }
-    .thank-you a {
+
+    .summary {
+      text-align: left;
+      margin-top: 20px;
+    }
+
+    .summary h2 {
+      font-size: 1.2rem;
+      color: #007bff;
+      margin-bottom: 10px;
+    }
+
+    .summary pre {
+      background: #f9f9f9;
+      padding: 15px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      white-space: pre-wrap;
+    }
+
+    a.button {
       display: inline-block;
       margin-top: 30px;
+      padding: 10px 20px;
       background-color: #007bff;
       color: white;
-      padding: 12px 24px;
-      border-radius: 8px;
       text-decoration: none;
-      transition: background-color 0.3s ease;
+      border-radius: 5px;
     }
-    .thank-you a:hover {
+
+    a.button:hover {
       background-color: #0056b3;
     }
   </style>
 </head>
 <body>
-  <div class="thank-you">
-    <h1>✅ Order Placed!</h1>
-    <p>Thank you for your order with Bradfield's Computer Supply.<br>
-    A confirmation email has been sent and your Zebra label media request is being processed.</p>
-    <a href="index.html">Return to Store</a>
+  <div class="thank-you-box">
+    <h1>🎉 Thank You!</h1>
+    <p class="lead">Your order has been placed successfully.</p>
+
+    <div class="summary">
+      <h2>Order Summary:</h2>
+      <pre id="order-summary">Loading...</pre>
+    </div>
+
+    <a href="index.html" class="button">Return to Store</a>
   </div>
+
+  <script>
+    // Load order details from localStorage
+    const summaryEl = document.getElementById('order-summary');
+    const orderData = localStorage.getItem('bradfields-order-summary');
+
+    if (orderData) {
+      summaryEl.textContent = orderData;
+      localStorage.removeItem('bradfields-order-summary'); // Clear it
+    } else {
+      summaryEl.textContent = "No summary available.";
+    }
+  </script>
 </body>
 </html>
