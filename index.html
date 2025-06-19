@@ -99,6 +99,13 @@
 
       <label for="customer-notes">Special Instructions or Notes:</label>
       <textarea id="customer-notes" placeholder="Any additional order details or requests..."></textarea>
+
+      <!-- Honeypot field (invisible to real users) -->
+<div style="display: none;">
+  <label for="company">Company (leave blank):</label>
+  <input type="text" id="company" name="company" autocomplete="off" />
+</div>
+
     </section>
 
    <!-- Fixed Bottom Checkout CTA with Total -->
