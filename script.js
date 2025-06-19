@@ -22,6 +22,7 @@ function updateCart() {
     cart.forEach((item) => {
       const itemTotalPrice = (item.price * item.quantity).toFixed(2);
       cartItems.innerHTML += `<li>${item.name} (x${item.quantity}) - $${itemTotalPrice}</li>`;
+      document.getElementById("cart-count").textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
     });
   }
 
