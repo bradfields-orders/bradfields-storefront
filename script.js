@@ -13,14 +13,6 @@ window.onload = function () {
   }
 };
 
-// Update the checkout() function to include customer notes
-const customerNotes = document.getElementById("customer-notes").value;
-
-emailjs.send("service_ynszdmf", "template_gaxjw0r", {
-  // ...existing fields...
-  customer_notes: customerNotes,
-});
-
 // Slide in Cart feature
 function toggleCart() {
   document.getElementById("cart-drawer").classList.toggle("open");
@@ -67,12 +59,12 @@ function updateCart() {
   totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
   totalPriceElem.textContent = totalPrice.toFixed(2);
 
-  // ✅ Update cart count bubble (outside loop)
+  // ✅ Update cart count bubble
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
   cartCountElem.textContent = totalItems;
 }
 
-// Toast notification for visual feedback
+// Toast notification
 function showToast(message) {
   const toast = document.getElementById("toast");
   toast.textContent = message;
@@ -87,18 +79,19 @@ function showToast(message) {
   }, 2000);
 }
 
-// Smooth scroll to cart section (if fallback needed)
+// Smooth scroll to cart section (fallback)
 function scrollToCart() {
   document.getElementById("cart").scrollIntoView({ behavior: "smooth" });
 }
 
-// ✅ Checkout function
+// ✅ Checkout function (includes customer notes)
 function checkout() {
   const customerName = document.getElementById("customer-name").value;
   const customerEmail = document.getElementById("customer-email").value;
   const customerAddress = document.getElementById("customer-address").value;
   const dropoffLocation = document.getElementById("dropoff-location").value;
   const customerPhone = document.getElementById("customer-phone").value;
+  const customerNotes = document.getElementById("customer-notes").value;
 
   if (!customerName || !customerEmail || !customerAddress || !dropoffLocation || !customerPhone) {
     alert("Please fill out all the fields before checking out.");
@@ -113,26 +106,28 @@ function checkout() {
   const orderDetails = cart.map(item => `${item.name} - $${item.price} x ${item.quantity}`).join('\n');
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
-  // Send order via EmailJS
   emailjs.send("service_ynszdmf", "template_gaxjw0r", {
     customer_name: customerName,
     customer_email: customerEmail,
     customer_address: customerAddress,
     dropoff_location: dropoffLocation,
     customer_phone: customerPhone,
+    customer_notes: customerNotes,
     order_details: orderDetails,
     total_price: total.toFixed(2)
   })
   .then((response) => {
     console.log("EmailJS SUCCESS:", response.status, response.text);
 
-    // Store order summary in localStorage for thankyou.html
     const summaryText = `
 Customer: ${customerName}
 Email: ${customerEmail}
 Phone: ${customerPhone}
 Address: ${customerAddress}
 Drop-off Location: ${dropoffLocation}
+
+Notes:
+${customerNotes}
 
 Order:
 ${orderDetails}
@@ -141,15 +136,11 @@ Total: $${total.toFixed(2)}
     `;
     localStorage.setItem("bradfields-order-summary", summaryText);
 
-    // ✅ Reset everything
     cart = [];
     updateCart();
     document.querySelectorAll('input[type="number"]').forEach(input => input.value = 1);
-
-    // ✅ Close cart drawer if open
     document.getElementById("cart-drawer").classList.remove("open");
 
-    // Redirect to thank you page
     window.location.href = "thankyou.html";
   })
   .catch((error) => {
@@ -158,5 +149,5 @@ Total: $${total.toFixed(2)}
   });
 }
 
-// ✅ Initialize cart UI state on page load
+// ✅ Initialize cart UI state
 updateCart();
