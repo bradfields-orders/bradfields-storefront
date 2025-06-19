@@ -119,6 +119,22 @@ function scrollToCart() {
   document.getElementById("cart").scrollIntoView({ behavior: "smooth" });
 }
 
+let lastScrollY = window.scrollY;
+
+window.addEventListener("scroll", () => {
+  const bar = document.querySelector(".bottom-checkout-bar");
+  if (!bar) return;
+
+  if (window.scrollY > lastScrollY) {
+    // Scrolling down
+    bar.classList.add("hide-bar");
+  } else {
+    // Scrolling up
+    bar.classList.remove("hide-bar");
+  }
+  lastScrollY = window.scrollY;
+});
+
 // Checkout
 function checkout() {
   const customerName = document.getElementById("customer-name").value;
