@@ -1,5 +1,4 @@
 let cart = [];
-let cartCount = 0;
 let totalPrice = 0;
 
 // Add item to cart
@@ -10,10 +9,11 @@ function addToCart(productName, price, quantity) {
   showToast(`${productName} added to cart`);
 }
 
-// Update cart display
+// Update cart display and cart count bubble
 function updateCart() {
   const cartItems = document.getElementById("cart-items");
   const totalPriceElem = document.getElementById("total-price");
+  const cartCountElem = document.getElementById("cart-count");
   cartItems.innerHTML = ''; // Clear previous items
 
   if (cart.length === 0) {
@@ -27,7 +27,13 @@ function updateCart() {
 
   totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
   totalPriceElem.textContent = totalPrice.toFixed(2);
+
+  // Update cart count bubble
+  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+  cartCountElem.textContent = totalItems;
 }
+
+// Toast notification for visual feedback
 function showToast(message) {
   const toast = document.getElementById("toast");
   toast.textContent = message;
@@ -40,6 +46,11 @@ function showToast(message) {
       toast.style.display = "none";
     }, 500);
   }, 2000);
+}
+
+// Smooth scroll to cart section
+function scrollToCart() {
+  document.getElementById("cart").scrollIntoView({ behavior: "smooth" });
 }
 
 // Checkout function
@@ -63,11 +74,6 @@ function checkout() {
   const orderDetails = cart.map(item => `${item.name} - $${item.price} x ${item.quantity}`).join('\n');
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
-  function scrollToCart() {
-  document.getElementById("cart").scrollIntoView({ behavior: "smooth" });
-}
-
-  // Send internal order email (no customer email)
   emailjs.send("service_ynszdmf", "template_gaxjw0r", {
     customer_name: customerName,
     customer_email: customerEmail,
@@ -81,14 +87,13 @@ function checkout() {
     alert("Order placed successfully! Thank you for your order.");
     console.log("EmailJS SUCCESS:", response.status, response.text);
     
+    // Reset everything
     cart = [];
     updateCart();
     document.querySelectorAll('input[type="number"]').forEach(input => input.value = 1);
-    document.getElementById("cart-count").textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
   })
   .catch((error) => {
-  console.error("EmailJS FAILED:", JSON.stringify(error));
-  alert("Failed to send order. Error: " + JSON.stringify(error));
-});
-
+    console.error("EmailJS FAILED:", JSON.stringify(error));
+    alert("Failed to send order. Error: " + JSON.stringify(error));
+  });
 }
