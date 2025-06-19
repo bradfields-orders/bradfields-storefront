@@ -1,6 +1,14 @@
 let cart = [];
 let totalPrice = 0;
 
+// Search bar
+function filterProducts() {
+  const query = document.getElementById("product-search").value.toLowerCase();
+  document.querySelectorAll('.product').forEach(product => {
+    product.style.display = product.textContent.toLowerCase().includes(query) ? "block" : "none";
+  });
+}
+
 // Add item to cart
 function addToCart(productName, price, quantity) {
   quantity = parseInt(quantity); // Ensure quantity is an integer
