@@ -1,10 +1,6 @@
 let cart = [];
 let totalPrice = 0;
 
-// Animated Add to Cart Button
-button.classList.add("added");
-setTimeout(() => button.classList.remove("added"), 300);
-
 // Slide in Cart feature
 function toggleCart() {
   document.getElementById("cart-drawer").classList.toggle("open");
@@ -24,6 +20,11 @@ function addToCart(productName, price, quantity) {
   cart.push({ name: productName, price: price, quantity: quantity });
   updateCart();
   showToast(`${productName} added to cart`);
+
+  // Animate Add to Cart button (optional)
+  const activeButton = event.target;
+  activeButton.classList.add("added");
+  setTimeout(() => activeButton.classList.remove("added"), 300);
 }
 
 // Update cart display and cart count bubble
@@ -66,12 +67,12 @@ function showToast(message) {
   }, 2000);
 }
 
-// Smooth scroll to cart section
+// Smooth scroll to cart section (if fallback needed)
 function scrollToCart() {
   document.getElementById("cart").scrollIntoView({ behavior: "smooth" });
 }
 
-// Checkout function
+// ✅ Checkout function
 function checkout() {
   const customerName = document.getElementById("customer-name").value;
   const customerEmail = document.getElementById("customer-email").value;
@@ -92,6 +93,7 @@ function checkout() {
   const orderDetails = cart.map(item => `${item.name} - $${item.price} x ${item.quantity}`).join('\n');
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
+  // Send order via EmailJS
   emailjs.send("service_ynszdmf", "template_gaxjw0r", {
     customer_name: customerName,
     customer_email: customerEmail,
@@ -102,8 +104,10 @@ function checkout() {
     total_price: total.toFixed(2)
   })
   .then((response) => {
-    // Save order summary to localStorage for thankyou.html
-const summaryText = `
+    console.log("EmailJS SUCCESS:", response.status, response.text);
+
+    // Store order summary in localStorage for thankyou.html
+    const summaryText = `
 Customer: ${customerName}
 Email: ${customerEmail}
 Phone: ${customerPhone}
@@ -114,17 +118,19 @@ Order:
 ${orderDetails}
 
 Total: $${total.toFixed(2)}
-`;
+    `;
+    localStorage.setItem("bradfields-order-summary", summaryText);
 
-localStorage.setItem("bradfields-order-summary", summaryText);
-window.location.href = "thankyou.html";
-
-    console.log("EmailJS SUCCESS:", response.status, response.text);
-
-    // Reset everything
+    // ✅ Reset everything
     cart = [];
     updateCart();
     document.querySelectorAll('input[type="number"]').forEach(input => input.value = 1);
+
+    // ✅ Close cart drawer if open
+    document.getElementById("cart-drawer").classList.remove("open");
+
+    // Redirect to thank you page
+    window.location.href = "thankyou.html";
   })
   .catch((error) => {
     console.error("EmailJS FAILED:", JSON.stringify(error));
