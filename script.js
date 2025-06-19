@@ -22,14 +22,14 @@ function updateCart() {
     cart.forEach((item) => {
       const itemTotalPrice = (item.price * item.quantity).toFixed(2);
       cartItems.innerHTML += `<li>${item.name} (x${item.quantity}) - $${itemTotalPrice}</li>`;
-      document.getElementById("cart-count").textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
     });
   }
 
+  // Update total price
   totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
   totalPriceElem.textContent = totalPrice.toFixed(2);
 
-  // Update cart count bubble
+  // ✅ Update cart count bubble (outside loop)
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
   cartCountElem.textContent = totalItems;
 }
