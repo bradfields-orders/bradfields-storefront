@@ -66,6 +66,11 @@ function updateCart() {
   const cartItems = document.getElementById("cart-items");
   const totalPriceElem = document.getElementById("total-price");
   const cartCountElem = document.getElementById("cart-count");
+  const bottomTotalElem = document.getElementById("bottom-total");
+if (bottomTotalElem) {
+  bottomTotalElem.textContent = totalPrice.toFixed(2);
+}
+
   cartItems.innerHTML = '';
 
   if (cart.length === 0) {
