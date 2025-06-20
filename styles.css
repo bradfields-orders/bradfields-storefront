@@ -4,12 +4,14 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
   .product-list {
     flex-direction: column;
   }
 }
+
 /* Floating Dark Mode Toggle */
 .theme-toggle-floating {
   position: fixed;
@@ -23,6 +25,35 @@
   border-radius: 25px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   z-index: 1000;
+}
+
+/* Partner Branding Section (Footer Logos and Tagline) */
+.partner-branding {
+  text-align: center;
+  margin: 40px 0 20px;
+  padding-top: 10px;
+  border-top: 1px solid #ccc;
+}
+
+.footer-logo {
+  height: 50px;
+  margin: 0 10px;
+  vertical-align: middle;
+  object-fit: contain;
+}
+
+.partner-branding .tagline {
+  font-size: 0.95rem;
+  color: #444;
+  margin-top: 10px;
+  font-style: italic;
+}
+
+footer {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #666;
+  padding-bottom: 40px;
 }
 
 .bottom-checkout-bar {
@@ -137,19 +168,6 @@ input:checked + .slider {
 
 input:checked + .slider:before {
   transform: translateX(26px);
-}
-
-.partner-branding {
-  text-align: center;
-  padding: 20px;
-  background: #f9f9f9;
-  border-top: 1px solid #ddd;
-}
-
-.partner-branding .tagline {
-  font-size: 0.9rem;
-  margin-top: 10px;
-  color: #555;
 }
 
 .toggle-label {
@@ -497,56 +515,7 @@ h2 {
   z-index: 9999;
 }
 
-/* Footer */
-footer {
-  background: #f8f9fb;
-  padding: 30px 20px;
-  text-align: center;
-  font-size: 0.95rem;
-  color: #333;
-  border-top: 1px solid #ddd;
-  margin-top: 40px;
-}
-
-footer a {
-  color: #007bff;
-  text-decoration: none;
-}
-
-footer a:hover {
-  text-decoration: underline;
-}
-
-.footer-branding {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 25px;
-  flex-wrap: wrap;
-  margin-bottom: 12px;
-}
-
-.footer-logo,
-.footer-zebra-badge {
-  height: 50px;
-  object-fit: contain;
-  opacity: 0.9;
-
-  .footer-logo {
-  height: 60px;
-  margin: 10px;
-  object-fit: contain;
-  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
-}
-
-.footer-tagline {
-  font-size: 0.95rem;
-  font-style: italic;
-  color: #555;
-  margin-bottom: 20px;
-}
-
-
+/* Fix hover state */
 button:hover {
   background-color: #0056b3;
 }
