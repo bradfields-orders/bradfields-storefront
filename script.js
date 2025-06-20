@@ -207,6 +207,10 @@ Total: $${total.toFixed(2)}
     console.error("EmailJS FAILED:", JSON.stringify(error));
     alert("Failed to send order. Error: " + JSON.stringify(error));
 
+  //  Hide spinner and re-enable buttons on failure
+    document.getElementById("checkout-overlay").style.display = "none";
+    document.querySelectorAll('button[onclick="checkout()"]').forEach(btn => btn.disabled = false);
+    
 async function generatePDF() {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
@@ -220,10 +224,6 @@ async function generatePDF() {
 
   doc.save("bradfields-invoice.pdf");
 }
-
-    //  Hide spinner and re-enable buttons on failure
-    document.getElementById("checkout-overlay").style.display = "none";
-    document.querySelectorAll('button[onclick="checkout()"]').forEach(btn => btn.disabled = false);
   });
 }
 
