@@ -207,7 +207,21 @@ Total: $${total.toFixed(2)}
     console.error("EmailJS FAILED:", JSON.stringify(error));
     alert("Failed to send order. Error: " + JSON.stringify(error));
 
-    // ✅ Hide spinner and re-enable buttons on failure
+async function generatePDF() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+
+  const summary = localStorage.getItem("bradfields-order-summary") || "No order details.";
+
+  doc.setFontSize(14);
+  doc.text("Bradfield's Computer Supply", 20, 20);
+  doc.setFontSize(11);
+  doc.text(summary, 20, 30);
+
+  doc.save("bradfields-invoice.pdf");
+}
+
+    //  Hide spinner and re-enable buttons on failure
     document.getElementById("checkout-overlay").style.display = "none";
     document.querySelectorAll('button[onclick="checkout()"]').forEach(btn => btn.disabled = false);
   });
