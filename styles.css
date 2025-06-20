@@ -178,7 +178,6 @@ input:checked + .slider:before {
   to { transform: rotate(360deg); }
 }
 
-
 /* Remove Button */
 .remove-btn {
   margin-left: 10px;
