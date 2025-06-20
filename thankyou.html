@@ -13,8 +13,6 @@
       text-align: center;
     }
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    
     .thank-you-box {
       background: #fff;
       padding: 30px;
@@ -105,7 +103,11 @@
     </div>
   </div>
 
+  <!-- Load jsPDF properly here -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
   <script>
+    // Load order summary
     const summaryEl = document.getElementById('order-summary');
     const orderData = localStorage.getItem('bradfields-order-summary');
 
@@ -114,6 +116,21 @@
       localStorage.removeItem('bradfields-order-summary');
     } else {
       summaryEl.textContent = "No summary available.";
+    }
+
+    // Generate PDF
+    async function generatePDF() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+
+      const summary = summaryEl.textContent || "No order details.";
+
+      doc.setFontSize(14);
+      doc.text("Bradfield's Computer Supply", 20, 20);
+      doc.setFontSize(11);
+      doc.text(summary, 20, 30, { maxWidth: 170 });
+
+      doc.save("bradfields-invoice.pdf");
     }
   </script>
 </body>
