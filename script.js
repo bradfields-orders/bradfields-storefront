@@ -90,11 +90,9 @@ function updateCart() {
     });
   }
 
-  // ✅ Recalculate totalPrice first
   totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
   if (isNaN(totalPrice)) totalPrice = 0;
 
-  // ✅ Update both totals after calculation
   totalPriceElem.textContent = totalPrice.toFixed(2);
   if (bottomTotalElem) {
     bottomTotalElem.textContent = totalPrice.toFixed(2);
@@ -145,9 +143,8 @@ function checkout() {
   const dropoffLocation = document.getElementById("dropoff-location").value;
   const customerPhone = document.getElementById("customer-phone").value;
   const customerNotes = document.getElementById("customer-notes").value;
-
-  // Honeypot check
   const honeypot = document.getElementById("company").value;
+
   if (honeypot !== "") {
     console.warn("Spam detected. Submission aborted.");
     return;
@@ -163,23 +160,19 @@ function checkout() {
     return;
   }
 
+  // ✅ Show spinner overlay and disable buttons
+  const overlay = document.getElementById("checkout-overlay");
+  overlay.classList.add("active");
+
+  document.querySelectorAll('button[onclick="checkout()"]').forEach(btn => {
+    btn.disabled = true;
+    btn.innerHTML = `<span class="spinner" style="display:inline-block;width:16px;height:16px;margin-right:8px;"></span>Sending...`;
+  });
+
   const orderDetails = cart.map(item => `${item.name} - $${item.price} x ${item.quantity}`).join('\n');
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
-  emailjs.send("service_ynszdmf", "template_gaxjw0r", {
-    customer_name: customerName,
-    customer_email: customerEmail,
-    customer_address: customerAddress,
-    dropoff_location: dropoffLocation,
-    customer_phone: customerPhone,
-    customer_notes: customerNotes,
-    order_details: orderDetails,
-    total_price: total.toFixed(2)
-  })
-  .then((response) => {
-    console.log("EmailJS SUCCESS:", response.status, response.text);
-
-    const summaryText = `
+  const summaryText = `
 Customer: ${customerName}
 Email: ${customerEmail}
 Phone: ${customerPhone}
@@ -193,7 +186,20 @@ Order:
 ${orderDetails}
 
 Total: $${total.toFixed(2)}
-    `;
+  `;
+
+  emailjs.send("service_ynszdmf", "template_gaxjw0r", {
+    customer_name: customerName,
+    customer_email: customerEmail,
+    customer_address: customerAddress,
+    dropoff_location: dropoffLocation,
+    customer_phone: customerPhone,
+    customer_notes: customerNotes,
+    order_details: orderDetails,
+    total_price: total.toFixed(2)
+  })
+  .then((response) => {
+    console.log("EmailJS SUCCESS:", response.status, response.text);
     localStorage.setItem("bradfields-order-summary", summaryText);
 
     cart = [];
@@ -201,31 +207,35 @@ Total: $${total.toFixed(2)}
     document.querySelectorAll('input[type="number"]').forEach(input => input.value = 1);
     document.getElementById("cart-drawer").classList.remove("open");
 
-    window.location.href = "thankyou.html";
+    setTimeout(() => {
+      window.location.href = "thankyou.html";
+    }, 1500); // Add delay before redirect
   })
   .catch((error) => {
     console.error("EmailJS FAILED:", JSON.stringify(error));
     alert("Failed to send order. Error: " + JSON.stringify(error));
 
-  //  Hide spinner and re-enable buttons on failure
-    document.getElementById("checkout-overlay").style.display = "none";
-    document.querySelectorAll('button[onclick="checkout()"]').forEach(btn => btn.disabled = false);
-    
-async function generatePDF() {
+    overlay.classList.remove("active");
+    document.querySelectorAll('button[onclick="checkout()"]').forEach(btn => {
+      btn.disabled = false;
+      btn.textContent = "Checkout";
+    });
+  });
+}
+
+// PDF generation for thankyou.html
+function generatePDF() {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
-
   const summary = localStorage.getItem("bradfields-order-summary") || "No order details.";
 
   doc.setFontSize(14);
   doc.text("Bradfield's Computer Supply", 20, 20);
   doc.setFontSize(11);
-  doc.text(summary, 20, 30);
+  doc.text(summary, 20, 30, { maxWidth: 170 });
 
   doc.save("bradfields-invoice.pdf");
 }
-  });
-}
 
-// Initialize cart display
+// Initialize cart
 updateCart();
