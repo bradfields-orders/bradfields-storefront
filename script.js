@@ -206,6 +206,10 @@ Total: $${total.toFixed(2)}
   .catch((error) => {
     console.error("EmailJS FAILED:", JSON.stringify(error));
     alert("Failed to send order. Error: " + JSON.stringify(error));
+
+    // ✅ Hide spinner and re-enable buttons on failure
+    document.getElementById("checkout-overlay").style.display = "none";
+    document.querySelectorAll('button[onclick="checkout()"]').forEach(btn => btn.disabled = false);
   });
 }
 
