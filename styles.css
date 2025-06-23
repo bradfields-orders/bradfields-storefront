@@ -256,7 +256,7 @@ body.dark-mode .button:hover {
 /* Body and layout */
 body {
   font-family: 'Inter', sans-serif;
-  background: linear-gradient(135deg, #f4f8fb, #e9eff5);
+  background: radial-gradient(circle at center, #ffffff 0%, #f4f8fb 100%);
   color: #333;
   line-height: 1.6;
   padding: 20px;
